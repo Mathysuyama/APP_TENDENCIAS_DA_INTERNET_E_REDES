@@ -15,6 +15,7 @@
                         <button class="btn btn-outline-light btn-sm" onclick="filterPlatform('Facebook')">Facebook</button>
                         <button class="btn btn-outline-light btn-sm" onclick="filterPlatform('Instagram')">Instagram</button>
                         <button class="btn btn-outline-light btn-sm" onclick="filterPlatform('TikTok')">TikTok</button>
+                        <button class="btn btn-outline-light btn-sm" onclick="filterPlatform('YouTube')">YouTube</button>
                     </div>
                 </div>
             </div>
@@ -56,6 +57,10 @@
                                     {% elif trend.platform == 'TikTok' %}
                                         <span class="badge bg-dark">
                                             <i class="fab fa-tiktok me-1"></i>{{ trend.platform }}
+                                        </span>
+                                    {% elif trend.platform == 'YouTube' %}
+                                        <span class="badge bg-danger">
+                                            <i class="fab fa-youtube me-1"></i>{{ trend.platform }}
                                         </span>
                                     {% endif %}
                                 </td>

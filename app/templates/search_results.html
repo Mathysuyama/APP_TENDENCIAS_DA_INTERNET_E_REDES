@@ -36,6 +36,10 @@
                                         <span class="badge bg-dark platform-badge">
                                             <i class="fab fa-tiktok me-1"></i>{{ result.platform }}
                                         </span>
+                                    {% elif result.platform == 'YouTube' %}
+                                        <span class="badge bg-danger platform-badge">
+                                            <i class="fab fa-youtube me-1"></i>{{ result.platform }}
+                                        </span>
                                     {% endif %}
                                 </div>
                                 

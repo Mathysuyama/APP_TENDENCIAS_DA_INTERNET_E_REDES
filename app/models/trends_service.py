@@ -126,6 +126,16 @@ class SocialMediaService:
         ]
         return mock_trends[:10]
     
+    def get_youtube_trends(self):
+        """Simula busca de tendências do YouTube"""
+        mock_trends = [
+            "review iPhone 15", "unboxing produtos", "como usar Air Fryer",
+            "teste de produtos", "melhores gadgets", "review notebook",
+            "produtos baratos", "ofertas imperdíveis", "Black Friday",
+            "dicas de compras", "analise produtos", "tutorial tecnologia"
+        ]
+        return mock_trends[:10]
+    
     def search_term_volume(self, term, platform):
         """Simula volume de busca para um termo específico"""
         import random
@@ -133,7 +143,8 @@ class SocialMediaService:
         base_volume = {
             'facebook': random.randint(1000, 50000),
             'instagram': random.randint(500, 30000),
-            'tiktok': random.randint(2000, 100000)
+            'tiktok': random.randint(2000, 100000),
+            'youtube': random.randint(3000, 80000)  # YouTube tem alto volume!
         }
         return base_volume.get(platform.lower(), random.randint(100, 10000))
     
@@ -160,7 +171,7 @@ class SocialMediaService:
                 'Santa Catarina': random.randint(4000, 8000),
                 'Espírito Santo': random.randint(3000, 6000)
             }
-        else:  # TikTok
+        elif platform.lower() == 'tiktok':
             # TikTok mais popular entre jovens
             estados = {
                 'São Paulo': random.randint(20000, 35000),
@@ -168,6 +179,15 @@ class SocialMediaService:
                 'Minas Gerais': random.randint(12000, 22000),
                 'Paraná': random.randint(8000, 15000),
                 'Ceará': random.randint(6000, 12000)
+            }
+        else:  # YouTube
+            # YouTube popular em todas as idades, especialmente para reviews
+            estados = {
+                'São Paulo': random.randint(25000, 40000),
+                'Rio de Janeiro': random.randint(18000, 32000),
+                'Minas Gerais': random.randint(15000, 25000),
+                'Rio Grande do Sul': random.randint(12000, 20000),
+                'Paraná': random.randint(10000, 18000)
             }
         
         return estados
@@ -230,6 +250,18 @@ class TrendsAggregator:
                 'regions': regions
             })
         
+        # YouTube
+        youtube_trends = self.social_service.get_youtube_trends()
+        for term in youtube_trends:
+            volume = self.social_service.search_term_volume(term, 'youtube')
+            regions = self.social_service.get_brazilian_regions_for_social(term, 'youtube')
+            all_trends.append({
+                'term': term,
+                'platform': 'YouTube',
+                'volume': volume,
+                'regions': regions
+            })
+        
         # Ordenar por volume
         all_trends.sort(key=lambda x: x['volume'], reverse=True)
         return all_trends
@@ -249,7 +281,7 @@ class TrendsAggregator:
         })
         
         # Redes sociais (volumes simulados)
-        for platform in ['Facebook', 'Instagram', 'TikTok']:
+        for platform in ['Facebook', 'Instagram', 'TikTok', 'YouTube']:
             volume = self.social_service.search_term_volume(term, platform.lower())
             regions = self.social_service.get_brazilian_regions_for_social(term, platform.lower())
             results.append({

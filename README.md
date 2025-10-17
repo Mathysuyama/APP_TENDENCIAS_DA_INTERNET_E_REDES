@@ -5,11 +5,11 @@ Um sistema Python MVC completo para análise de tendências de pesquisa em Googl
 ## 🎯 Funcionalidades
 
 ### ✅ Implementadas
-- **Busca de Tendências**: Pesquisa termos trending no Google, Facebook, Instagram e TikTok
+- **Busca de Tendências**: Pesquisa termos trending no Google, Facebook, Instagram, TikTok e YouTube
 - **Ranking Dinâmico**: Exibe palavras-chave ordenadas por volume de pesquisa
 - **Análise Regional**: Mostra distribuição de interesse por estados/regiões
 - **Interface Web**: Dashboard completo para consultas e visualização
-- **Filtros por Plataforma**: Análise específica por rede social
+- **Filtros por Plataforma**: Análise específica por rede social (5 plataformas)
 - **Banco de Dados**: Armazenamento local SQLite para histórico
 
 ### 🚀 Como Usar
@@ -17,7 +17,8 @@ Um sistema Python MVC completo para análise de tendências de pesquisa em Googl
 1. **Pesquisa Específica**: Digite um termo na caixa de busca
 2. **Tendências Atuais**: Deixe em branco para ver termos em alta dos últimos 3 dias
 3. **Ranking Completo**: Visualize todos os dados coletados organizados
-4. **Filtros**: Analise por plataforma específica (Google, Facebook, Instagram, TikTok)
+4. **Filtros**: Analise por plataforma específica (Google, Facebook, Instagram, TikTok, YouTube)
+5. **Análise Regional**: Dados detalhados por estados brasileiros
 
 ## 🛠️ Instalação
 
@@ -83,6 +84,7 @@ APP_TENDENCIAS_DA_INTERNET_E_REDES/
 - **Facebook**: Facebook Graph API (requer token)
 - **Instagram**: Instagram API (requer token)
 - **TikTok**: TikTok API (requer chave)
+- **YouTube**: YouTube Data API (requer chave)
 
 > **Nota**: As APIs das redes sociais estão simuladas no momento. Para implementação completa, configure as credenciais no arquivo `.env`.
 

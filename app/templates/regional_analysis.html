@@ -32,12 +32,15 @@
                                 <th scope="col">
                                     <i class="fab fa-tiktok me-1"></i>TikTok
                                 </th>
+                                <th scope="col">
+                                    <i class="fab fa-youtube me-1"></i>YouTube
+                                </th>
                                 <th scope="col">Total</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for estado, platforms in regional_data.items() %}
-                            {% set total = (platforms.get('Google', 0) + platforms.get('Facebook', 0) + platforms.get('Instagram', 0) + platforms.get('TikTok', 0)) %}
+                            {% set total = (platforms.get('Google', 0) + platforms.get('Facebook', 0) + platforms.get('Instagram', 0) + platforms.get('TikTok', 0) + platforms.get('YouTube', 0)) %}
                             <tr>
                                 <td><strong>{{ estado }}</strong></td>
                                 <td>
@@ -64,6 +67,13 @@
                                 <td>
                                     {% if platforms.get('TikTok') %}
                                         <span class="badge bg-dark">{{ "{:,}".format(platforms.get('TikTok')).replace(',', '.') }}</span>
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if platforms.get('YouTube') %}
+                                        <span class="badge bg-danger">{{ "{:,}".format(platforms.get('YouTube')).replace(',', '.') }}</span>
                                     {% else %}
                                         <span class="text-muted">-</span>
                                     {% endif %}
@@ -114,6 +124,10 @@
                                     {% elif result.platform == 'TikTok' %}
                                         <span class="badge bg-dark platform-badge">
                                             <i class="fab fa-tiktok me-1"></i>{{ result.platform }}
+                                        </span>
+                                    {% elif result.platform == 'YouTube' %}
+                                        <span class="badge bg-danger platform-badge">
+                                            <i class="fab fa-youtube me-1"></i>{{ result.platform }}
                                         </span>
                                     {% endif %}
                                 </div>

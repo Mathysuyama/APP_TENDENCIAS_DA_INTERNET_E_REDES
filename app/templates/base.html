@@ -95,6 +95,50 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showRegionalHelp() {
+            const modal = `
+                <div class="modal fade" id="regionalHelpModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">
+                                    <i class="fas fa-map-marked-alt me-2"></i>Análise Regional
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h6>Como funciona:</h6>
+                                <ul>
+                                    <li>Pesquise um termo específico</li>
+                                    <li>Clique no botão "Regional" nos resultados</li>
+                                    <li>Veja dados detalhados por estado brasileiro</li>
+                                </ul>
+                                <h6>Estados com melhores dados:</h6>
+                                <ul>
+                                    <li><strong>São Paulo:</strong> Maior volume geral</li>
+                                    <li><strong>Rio de Janeiro:</strong> Alto engajamento</li>
+                                    <li><strong>Minas Gerais:</strong> Boa conversão</li>
+                                    <li><strong>Estados do Sul:</strong> Poder aquisitivo</li>
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modal);
+            const modalElement = new bootstrap.Modal(document.getElementById('regionalHelpModal'));
+            modalElement.show();
+            
+            // Remove modal após fechar
+            document.getElementById('regionalHelpModal').addEventListener('hidden.bs.modal', function () {
+                this.remove();
+            });
+        }
+    </script>
     {% block scripts %}{% endblock %}
 </body>
 </html>
