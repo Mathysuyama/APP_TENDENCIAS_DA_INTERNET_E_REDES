@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="hero-section bg-primary text-white rounded p-5 mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="display-4 fw-bold">Análise de Tendências</h1>
+                    <p class="lead">Descubra os termos mais pesquisados no Google, Facebook, Instagram e TikTok para otimizar seu marketing de afiliados.</p>
+                    <a href="{{ url_for('trends.search_trends') }}" class="btn btn-light btn-lg">
+                        <i class="fas fa-search me-2"></i>Começar Pesquisa
+                    </a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <i class="fas fa-chart-bar" style="font-size: 8rem; opacity: 0.3;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="card border-0 shadow-sm trending-card">
+            <div class="card-body text-center">
+                <i class="fab fa-google text-danger" style="font-size: 3rem;"></i>
+                <h5 class="card-title mt-3">Google Trends</h5>
+                <p class="card-text">Termos em alta no Google nos últimos 3 dias</p>
+                <a href="{{ url_for('trends.search_trends') }}" class="btn btn-outline-danger">Ver Tendências</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card border-0 shadow-sm trending-card">
+            <div class="card-body text-center">
+                <i class="fab fa-facebook text-primary" style="font-size: 3rem;"></i>
+                <h5 class="card-title mt-3">Facebook</h5>
+                <p class="card-text">Conteúdos mais populares no Facebook</p>
+                <a href="{{ url_for('trends.search_trends') }}" class="btn btn-outline-primary">Ver Tendências</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card border-0 shadow-sm trending-card">
+            <div class="card-body text-center">
+                <i class="fab fa-instagram text-warning" style="font-size: 3rem;"></i>
+                <h5 class="card-title mt-3">Instagram</h5>
+                <p class="card-text">Hashtags e conteúdos virais do Instagram</p>
+                <a href="{{ url_for('trends.search_trends') }}" class="btn btn-outline-warning">Ver Tendências</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card border-0 shadow-sm trending-card">
+            <div class="card-body text-center">
+                <i class="fab fa-tiktok text-dark" style="font-size: 3rem;"></i>
+                <h5 class="card-title mt-3">TikTok</h5>
+                <p class="card-text">Tendências virais do TikTok</p>
+                <a href="{{ url_for('trends.search_trends') }}" class="btn btn-outline-dark">Ver Tendências</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>Como Funciona
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-search text-primary" style="font-size: 2rem;"></i>
+                            <h6 class="mt-2">1. Pesquise</h6>
+                            <p class="small">Digite um termo específico ou deixe em branco para ver as tendências atuais</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-chart-line text-success" style="font-size: 2rem;"></i>
+                            <h6 class="mt-2">2. Analise</h6>
+                            <p class="small">Veja o volume de pesquisas, regiões e plataformas onde o termo é mais popular</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-bullseye text-warning" style="font-size: 2rem;"></i>
+                            <h6 class="mt-2">3. Otimize</h6>
+                            <p class="small">Use os dados para criar campanhas mais assertivas no Mercado Livre</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

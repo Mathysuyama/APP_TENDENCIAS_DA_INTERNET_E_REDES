@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-warning text-dark">
+                <h4 class="mb-0">
+                    <i class="fas fa-fire me-2"></i>Tendências em Alta
+                </h4>
+            </div>
+            <div class="card-body">
+                <p class="mb-3">Termos mais pesquisados nos últimos 3 dias em todas as plataformas.</p>
+                
+                {% if trends %}
+                <div class="row">
+                    {% for trend in trends %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-0 shadow-sm trending-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h6 class="card-title mb-0">{{ trend.term }}</h6>
+                                    {% if trend.platform == 'Google' %}
+                                        <span class="badge bg-danger platform-badge">
+                                            <i class="fab fa-google me-1"></i>{{ trend.platform }}
+                                        </span>
+                                    {% elif trend.platform == 'Facebook' %}
+                                        <span class="badge bg-primary platform-badge">
+                                            <i class="fab fa-facebook me-1"></i>{{ trend.platform }}
+                                        </span>
+                                    {% elif trend.platform == 'Instagram' %}
+                                        <span class="badge bg-warning platform-badge">
+                                            <i class="fab fa-instagram me-1"></i>{{ trend.platform }}
+                                        </span>
+                                    {% elif trend.platform == 'TikTok' %}
+                                        <span class="badge bg-dark platform-badge">
+                                            <i class="fab fa-tiktok me-1"></i>{{ trend.platform }}
+                                        </span>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="mb-2">
+                                    <small class="text-muted">Volume:</small>
+                                    <div class="d-flex align-items-center">
+                                        <div class="volume-bar flex-grow-1 me-2" style="width: {{ (trend.volume / 100000 * 100)|round(0) }}%"></div>
+                                        <strong>{{ "{:,}".format(trend.volume).replace(',', '.') }}</strong>
+                                    </div>
+                                </div>
+                                
+                                {% if trend.regions %}
+                                <div class="mt-2">
+                                    <small class="text-muted">Top Estados:</small>
+                                    <div class="mt-1">
+                                        {% for region, volume in trend.regions[:3] %}
+                                            <span class="badge bg-light text-dark me-1 mb-1">
+                                                <i class="fas fa-map-marker-alt me-1"></i>{{ region }}: {{ "{:,}".format(volume).replace(',', '.') }}
+                                            </span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                                
+                                <div class="mt-2">
+                                    <button class="btn btn-sm btn-outline-primary me-1" onclick="searchTerm('{{ trend.term }}')">
+                                        <i class="fas fa-search me-1"></i>Analisar
+                                    </button>
+                                    <a href="{{ url_for('trends.regional_analysis', term=trend.term) }}" class="btn btn-sm btn-outline-info">
+                                        <i class="fas fa-map-marked-alt me-1"></i>Regional
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-chart-line text-muted" style="font-size: 3rem;"></i>
+                    <h5 class="mt-3 text-muted">Nenhuma tendência encontrada</h5>
+                    <p class="text-muted">Clique em "Atualizar" para buscar novas tendências.</p>
+                    <a href="{{ url_for('trends.refresh_trends') }}" class="btn btn-primary">
+                        <i class="fas fa-sync-alt me-1"></i>Atualizar Tendências
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <a href="{{ url_for('trends.search_trends') }}" class="btn btn-primary me-2">
+            <i class="fas fa-search me-1"></i>Pesquisar Termo Específico
+        </a>
+        <a href="{{ url_for('trends.refresh_trends') }}" class="btn btn-outline-success">
+            <i class="fas fa-sync-alt me-1"></i>Atualizar Tendências
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function searchTerm(term) {
+    // Redirecionar para pesquisa específica
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '{{ url_for("trends.search_trends") }}';
+    
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'search_term';
+    input.value = term;
+    
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+}
+</script>
+{% endblock %}

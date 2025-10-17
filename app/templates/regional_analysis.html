@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-map-marked-alt me-2"></i>Análise Regional: "{{ term }}"
+                </h4>
+            </div>
+            <div class="card-body">
+                <p class="mb-3">Distribuição do interesse por estados brasileiros em todas as plataformas.</p>
+                
+                {% if regional_data %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Estado
+                                </th>
+                                <th scope="col">
+                                    <i class="fab fa-google me-1"></i>Google
+                                </th>
+                                <th scope="col">
+                                    <i class="fab fa-facebook me-1"></i>Facebook
+                                </th>
+                                <th scope="col">
+                                    <i class="fab fa-instagram me-1"></i>Instagram
+                                </th>
+                                <th scope="col">
+                                    <i class="fab fa-tiktok me-1"></i>TikTok
+                                </th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for estado, platforms in regional_data.items() %}
+                            {% set total = (platforms.get('Google', 0) + platforms.get('Facebook', 0) + platforms.get('Instagram', 0) + platforms.get('TikTok', 0)) %}
+                            <tr>
+                                <td><strong>{{ estado }}</strong></td>
+                                <td>
+                                    {% if platforms.get('Google') %}
+                                        <span class="badge bg-danger">{{ "{:,}".format(platforms.get('Google')).replace(',', '.') }}</span>
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if platforms.get('Facebook') %}
+                                        <span class="badge bg-primary">{{ "{:,}".format(platforms.get('Facebook')).replace(',', '.') }}</span>
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if platforms.get('Instagram') %}
+                                        <span class="badge bg-warning">{{ "{:,}".format(platforms.get('Instagram')).replace(',', '.') }}</span>
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if platforms.get('TikTok') %}
+                                        <span class="badge bg-dark">{{ "{:,}".format(platforms.get('TikTok')).replace(',', '.') }}</span>
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <strong class="text-success">{{ "{:,}".format(total).replace(',', '.') }}</strong>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-pie me-2"></i>Resumo por Plataforma
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if results %}
+                <div class="row">
+                    {% for result in results %}
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h6 class="card-title mb-0">{{ result.term }}</h6>
+                                    {% if result.platform == 'Google' %}
+                                        <span class="badge bg-danger platform-badge">
+                                            <i class="fab fa-google me-1"></i>{{ result.platform }}
+                                        </span>
+                                    {% elif result.platform == 'Facebook' %}
+                                        <span class="badge bg-primary platform-badge">
+                                            <i class="fab fa-facebook me-1"></i>{{ result.platform }}
+                                        </span>
+                                    {% elif result.platform == 'Instagram' %}
+                                        <span class="badge bg-warning platform-badge">
+                                            <i class="fab fa-instagram me-1"></i>{{ result.platform }}
+                                        </span>
+                                    {% elif result.platform == 'TikTok' %}
+                                        <span class="badge bg-dark platform-badge">
+                                            <i class="fab fa-tiktok me-1"></i>{{ result.platform }}
+                                        </span>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <small class="text-muted">Volume Total:</small>
+                                    <h5 class="text-success">{{ "{:,}".format(result.volume).replace(',', '.') }}</h5>
+                                </div>
+                                
+                                <div class="mt-2">
+                                    <small class="text-muted">Estados com Maior Interesse:</small>
+                                    <div class="mt-2">
+                                        {% for region, volume in result.regions[:5] %}
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>{{ region }}</span>
+                                            <span class="badge bg-light text-dark">{{ "{:,}".format(volume).replace(',', '.') }}</span>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="alert alert-success">
+            <h6><i class="fas fa-bullseye me-2"></i>Estratégias por Estado:</h6>
+            <ul class="mb-0">
+                <li><strong>São Paulo & Rio de Janeiro:</strong> Focar em campanhas de maior volume devido ao alto interesse</li>
+                <li><strong>Estados do Sul:</strong> Boa conversão devido ao poder aquisitivo</li>
+                <li><strong>Nordeste:</strong> TikTok e Instagram podem ter melhor performance</li>
+                <li><strong>Regiões menores:</strong> Menos concorrência, campanhas mais segmentadas</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-12 text-center">
+        <a href="{{ url_for('trends.search_trends') }}" class="btn btn-primary me-2">
+            <i class="fas fa-search me-1"></i>Nova Pesquisa
+        </a>
+        <a href="{{ url_for('trends.ranking') }}" class="btn btn-outline-primary">
+            <i class="fas fa-trophy me-1"></i>Ver Ranking Geral
+        </a>
+    </div>
+</div>
+{% endblock %}

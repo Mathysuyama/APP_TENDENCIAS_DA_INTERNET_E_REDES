@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-search me-2"></i>Pesquisar Tendências
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('trends.search_trends') }}">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <label for="search_term" class="form-label">Termo de Pesquisa</label>
+                                <input type="text" 
+                                       class="form-control form-control-lg" 
+                                       id="search_term" 
+                                       name="search_term" 
+                                       placeholder="Digite um termo ou deixe em branco para ver tendências atuais..."
+                                       autocomplete="off">
+                                <div class="form-text">
+                                    Deixe em branco para ver os termos mais pesquisados dos últimos 3 dias
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary btn-lg w-100">
+                                <i class="fas fa-search me-1"></i>Pesquisar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-lightbulb me-2"></i>Dicas para Pesquisa
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-check-circle text-success me-2"></i>Termos Eficazes:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-angle-right me-2"></i>Produtos específicos: "iPhone 15", "Air Fryer"</li>
+                            <li><i class="fas fa-angle-right me-2"></i>Categorias: "eletrônicos", "casa e jardim"</li>
+                            <li><i class="fas fa-angle-right me-2"></i>Marcas populares: "Samsung", "Xiaomi"</li>
+                            <li><i class="fas fa-angle-right me-2"></i>Eventos: "Black Friday", "Natal"</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-info-circle text-info me-2"></i>Como Usar os Resultados:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-angle-right me-2"></i>Foque em termos com alto volume</li>
+                            <li><i class="fas fa-angle-right me-2"></i>Analise a distribuição por região</li>
+                            <li><i class="fas fa-angle-right me-2"></i>Compare entre plataformas</li>
+                            <li><i class="fas fa-angle-right me-2"></i>Monitore tendências temporais</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-fire me-2"></i>Exemplos de Pesquisas Populares
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-wrap gap-2">
+                    <button class="btn btn-outline-primary btn-sm" onclick="document.getElementById('search_term').value='Black Friday'">
+                        Black Friday
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm" onclick="document.getElementById('search_term').value='iPhone'">
+                        iPhone
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm" onclick="document.getElementById('search_term').value='Air Fryer'">
+                        Air Fryer
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm" onclick="document.getElementById('search_term').value='Tênis'">
+                        Tênis
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm" onclick="document.getElementById('search_term').value='Notebook'">
+                        Notebook
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm" onclick="document.getElementById('search_term').value='Perfume'">
+                        Perfume
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm" onclick="document.getElementById('search_term').value='Smartwatch'">
+                        Smartwatch
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm" onclick="document.getElementById('search_term').value='Fone Bluetooth'">
+                        Fone Bluetooth
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
